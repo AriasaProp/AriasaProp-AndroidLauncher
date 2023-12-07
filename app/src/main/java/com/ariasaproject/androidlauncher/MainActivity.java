@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         
         final RecyclerView cv = (RecyclerView) findViewById(R.id.apps);
-        cv.setLayoutManager(new GridLayoutManager(this, 3));
+        cv.setLayoutManager(new GridLayoutManager(this, 3, RecyclerView.HORIZONTAL, false));
         adpt =  new Adapter<AppHolder>() {
                     final LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 
