@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -18,14 +21,50 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.SeekBar;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+		List<ResolveInfo> apps = new ArrayList<ResolveInfo>();
+		Adapter adpt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        final RecyclerView cv = (RecyclerView) findViewById(R.id.all_apps);
+        cv.setLayoutManager(new GridLayoutManager(this, 3));
+        adpt =  new Adapter<AppHolder>() {
+                    final LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+
+                    @Override
+                    public AppHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                        View itemView = inflater.inflate(R.layout.app_layout, parent, false);
+                        return new AppHolder(itemView);
+                    }
+
+                    @Override
+                    public void onBindViewHolder(AppHolder holder, int position) {
+                        final ResolveInfo c = apps.get(position);
+                        final PackageManager pm = MainActivity.this.getPackageManager();
+                        holder.label.setText(c.loadLabel(pm))
+                        holder.icon.setImageDrawable(c.loadIcon(pm))
+                    }
+
+                    @Override
+                    public int getItemCount() {
+                        return apps.size();
+                    }
+                };
+        cv.setAdapter(adpt);
         checkBatteryOptimizations();
+        updateAppList();
 		}
 
     private static final int REQUEST_BATTERY_OPTIMIZATIONS = 1001;
@@ -83,4 +122,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+    
+    void updateAppList(){
+    		Intent intent = new Intent(Intent.ACTION_MAIN, null);
+    		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+    		apps = getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
+    		adpt.notifyDataSetChanged();
+    }
+    
+    class AppHolder extends RecyclerView.ViewHolder {
+        TextView label;
+        ImageView icon;
+
+        public AppHolder(View itemView) {
+            super(itemView);
+            label = itemView.findViewById(R.id.text_view);
+            icon = itemView.findViewById(R.id.image_view);
+        }
+    }
 }
+
+
+
