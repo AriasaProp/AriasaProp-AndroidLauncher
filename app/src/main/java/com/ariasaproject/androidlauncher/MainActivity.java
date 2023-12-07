@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onBindViewHolder(AppHolder holder, int position) {
                         final ResolveInfo c = apps.get(position);
                         final PackageManager pm = MainActivity.this.getPackageManager();
-                        holder.label.setText(c.loadLabel(pm))
-                        holder.icon.setImageDrawable(c.loadIcon(pm))
+                        holder.label.setText(c.loadLabel(pm));
+                        holder.icon.setImageDrawable(c.loadIcon(pm));
                     }
 
                     @Override
