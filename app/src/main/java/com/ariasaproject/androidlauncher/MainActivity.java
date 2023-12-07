@@ -19,8 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.SeekBar;
-
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        final RecyclerView cv = (RecyclerView) findViewById(R.id.all_apps);
+        final RecyclerView cv = (RecyclerView) findViewById(R.id.apps);
         cv.setLayoutManager(new GridLayoutManager(this, 3));
         adpt =  new Adapter<AppHolder>() {
                     final LayoutInflater inflater = LayoutInflater.from(MainActivity.this);

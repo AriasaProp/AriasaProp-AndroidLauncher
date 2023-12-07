@@ -7,7 +7,7 @@
     android:layout_height="fill_parent"
     tools:context="com.ariasaproject.androidlauncher" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/all_apps"
+        android:id="@+id/apps"
         app:layout_constraintTop_toTopmOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
