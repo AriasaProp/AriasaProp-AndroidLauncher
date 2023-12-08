@@ -17,6 +17,6 @@
 	    	android:maxLines="2"
     		android:ellipsize="end"
 		    android:text="AppName"
-		    android:textAlignmet="center"
+		    android:gravity="center"
 				/>
 </LinearLayout>
