@@ -1,5 +1,5 @@
 <resources>
-    <style name="BaseTheme" parent="Theme.AppCompat.Light">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoTitleBar.Fullscreen">
         <item name="android:textColorPrimary">#FF0F0F0F</item>
         <item name="android:colorPrimary">#FFFFFFFF</item>
         <item name="android:colorPrimaryDark">#FF333333</item>
@@ -8,6 +8,8 @@
     </style>
 
     <style name="AppTheme" parent="BaseTheme">
+    		<item name="android:windowIsTranslucent">true</item>
+				<item name="android:windowBackground">@android:color/transparent</item>
     </style>
     
 </resources>
